@@ -7,7 +7,6 @@ This repository is for the HTTP Observatory command line utility.  If you're loo
 First, install the client:
 ```bash
 $ pip install httpobs-cli
-$ ln -s `pwd`/http-observatory/httpobs/scripts/httpobs /usr/local/bin/httpobs
 ```
 
 And then scan websites to your heart's content, using our hosted service:
