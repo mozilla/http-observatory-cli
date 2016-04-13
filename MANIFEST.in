@@ -1,0 +1,6 @@
+include LICENSE
+include MANIFEST.in
+include README.md
+include httpobs-cli
+global-exclude __pycache__
+global-exclude *.py[co]
