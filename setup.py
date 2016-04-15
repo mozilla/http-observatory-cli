@@ -28,7 +28,7 @@ setup(
         'Natural Language :: English',
         'Topic :: Security',
         'Topic :: Software Development :: Quality Assurance',
-        'Topic :: WWW/HTTP :: HTTP Servers',
+        'Topic :: Internet :: WWW/HTTP :: HTTP Servers',
     ],
     author='April King',
     author_email='april@mozilla.com',
