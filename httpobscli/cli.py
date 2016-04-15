@@ -151,7 +151,7 @@ def usage(cmd):
     exit(1)
 
 
-if __name__ == "__main__":
+def main():
     global args
 
     # Parse the command line
@@ -172,3 +172,7 @@ if __name__ == "__main__":
 
     # Go out and scan!
     analyze(args.host)
+
+
+if __name__ == "__main__":
+    main()

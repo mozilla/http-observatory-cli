@@ -2,11 +2,11 @@
 
 import os
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 __dirname = os.path.abspath(os.path.dirname(__file__))
-VERSION = '1.0.1'
+VERSION = '1.0.2'
 
 with open(os.path.join(__dirname, 'README.rst')) as readme:
     README = readme.read()
@@ -19,6 +19,9 @@ setup(
     download_url='https://github.com/mozilla/http-observatory-cli/httpobs-cli/tarball/' + VERSION,
     license='MPL 2.0',
     long_description=README,
+    install_requires=[
+        'requests'
+    ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
@@ -32,8 +35,13 @@ setup(
     ],
     author='April King',
     author_email='april@mozilla.com',
-    packages=[],
-    include_package_data=True,
-    scripts=['httpobs-cli/scripts/httpobs'],
-    zip_safe=False,
+    packages=find_packages(),
+    include_package_data=False,
+    zip_safe=True,
+    entry_points={
+        'console_scripts': [
+            'httpobs = httpobscli.cli:main',
+            'httpobs-cli = httpobscli.cli:main',
+        ]
+    },
 )
