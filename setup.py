@@ -6,15 +6,15 @@ from setuptools import setup
 
 
 __dirname = os.path.abspath(os.path.dirname(__file__))
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 
-with open(os.path.join(__dirname, 'README.md')) as readme:
+with open(os.path.join(__dirname, 'README.rst')) as readme:
     README = readme.read()
 
 setup(
     name='httpobs-cli',
     version=VERSION,
-    description='HTTP Observatory: command line to scan your website.',
+    description='HTTP Observatory: a command line tool to scan your website',
     url='https://github.com/mozilla/http-observatory-cli',
     download_url='https://github.com/mozilla/http-observatory-cli/httpobs-cli/tarball/' + VERSION,
     license='MPL 2.0',
