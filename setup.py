@@ -12,9 +12,10 @@ with open(os.path.join(__dirname, 'README.md')) as readme:
 
 setup(
     name='httpobs-cli',
-    version=1.0,
+    version='1.0.0',
     description='HTTP Observatory: command line to scan your website.',
     url='https://github.com/mozilla/http-observatory-cli',
+    license='MPL 2.0',
     long_description=README,
     classifiers=[
         'Development Status :: 4 - Beta',
