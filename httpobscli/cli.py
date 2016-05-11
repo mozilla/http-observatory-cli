@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+
 from __future__ import print_function
 from operator import itemgetter
 from os import environ
@@ -36,7 +37,7 @@ def analyze(host):
         scan = requests.post(API_URL + '/analyze?host={host}'.format(host=host), data=data).json()
 
         # Notify the user if the user if they attempted a rescan too soon
-        if args.rescan and scan.get('error') == 'rescan-attempt-too-soon':
+        if (args.rescan and scan.get('error') == 'rescan-attempt-too-soon'):
             print('Rescan attempt is sooner than the allowed cooldown period. Returning cached results instead.\n',
                   file=sys.stderr)
 
@@ -51,7 +52,7 @@ def analyze(host):
     except SystemExit:
         raise
     except:
-        print('\nCannot connect to HTTP Observatory at: {url}.'.format(url=API_URL))
+        print('\nCannot connect to HTTP Observatory at: {url} for Host: {host}.'.format(url=API_URL, host=host))
         exit(1)
 
     # Get the test results
@@ -72,14 +73,17 @@ def analyze(host):
               file=sys.stderr)
 
     # Print the grade and scan results
-    if not args.debug:
-        print('Score: {score} [{grade}]'.format(score=score, grade=grade))
-    else:
+    if args.csv:
+        print('{host},{grade},{score},"'.format(host=host, grade=grade, score=score), end="")
+    elif args.debug:
         print(json.dumps({'scan': scan, 'tests': tests}, indent=4, sort_keys=True))
+    else:
+        print('Score: {score} [{grade}]'.format(score=score, grade=grade))
 
     # Print out the reasons for score modification
     if not args.debug:
-        print('Modifiers:')
+        if not args.csv:
+            print('Modifiers:')
 
         # Get all the scores that aren't 0, in descending numerical order
         if args.zero:
@@ -93,7 +97,15 @@ def analyze(host):
         for score in scores:
             if score[0] > 0:
                 score[0] = '+' + str(score[0])  # display 5 as +5
-            print('    [{modifier:>4}] {reason}'.format(modifier=score[0], reason=score[1]))
+            if args.csv:
+                # it's not fancy but it works
+                print('[{modifier:>4}] {reason}'.format(modifier=score[0], reason=score[1].replace('"','\\"')))
+            else:
+                print('    [{modifier:>4}] {reason}'.format(modifier=score[0], reason=score[1]))
+
+        if args.csv:
+            # Terminating " for the block of text, post-loop
+            print('"')
 
 
 def poll(url, key, values=None, method='GET', headers=None, timeout=300):
@@ -120,7 +132,7 @@ def poll(url, key, values=None, method='GET', headers=None, timeout=300):
 
         # See if error is in there; if so, we just abort the whole thing
         if 'error' in r:
-            print('\nUnable to get result from the HTTP Observatory. Error: {error}.'.format(error=r['error']))
+            print('\nUnable to get result from the HTTP Observatory. Host:{host} Error: {error}.'.format(host, error=r['error']))
             exit(1)
 
         # See if the key is one of the pollable values
@@ -158,6 +170,7 @@ def main():
     parser = argparse.ArgumentParser(usage='%(prog)s [options] host')
     parser.add_argument('host', help='hostname of the website to scan')
     parser.add_argument('-d', '--debug', action='store_true', help='output only raw JSON from scan and tests')
+    parser.add_argument('-c', '--csv', action='store_true', help='output record in quoted csv format')
     parser.add_argument('-r', '--rescan',
                         action='store_true',
                         help='initiate a rescan instead of showing recent scan results')
