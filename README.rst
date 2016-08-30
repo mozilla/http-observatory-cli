@@ -5,10 +5,29 @@ This repository is for the HTTP Observatory command line utility. If
 you're looking for the code for the HTTP Observatory itself, it can be
 found `here <https://github.com/mozilla/http-observatory>`__.
 
-Getting started with the HTTP Observatory
+Getting started with the HTTP Observatory (docker)
 -----------------------------------------
 
-First, install the client:
+
+.. code:: bash
+
+    $ docker run --rm fgribreau/httpobs-cli www.mozilla.org
+    Score: 30 [E]
+    Modifiers:
+        [  -5] Initial redirection from http to https is to a different host, preventing HSTS
+        [  -5] Subresource Integrity (SRI) not implemented, but all external scripts are loaded over https
+        [  -5] X-Content-Type-Options header not implemented
+        [ -10] X-XSS-Protection header not implemented
+        [ -20] HTTP Strict Transport Security (HSTS) header not implemented
+        [ -25] Content Security Policy (CSP) header not implemented
+
+Getting started with the HTTP Observatory (python)
+-----------------------------------------
+
+First install the client:
+
+pip install httpobs-cli
+
 
 .. code:: bash
 
