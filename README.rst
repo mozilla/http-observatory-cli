@@ -1,9 +1,7 @@
 Mozilla HTTP Observatory :: Command Line Utility
 ================================================
 
-This repository is for the HTTP Observatory command line utility. If
-you're looking for the code for the HTTP Observatory itself, it can be
-found `here <https://github.com/mozilla/http-observatory>`__.
+Please note that this version of the Observatory CLI has been deprecated, and replaced with a `considerably more powerful version <https://github.com/mozilla/observatory-cli>`_.
 
 Getting started with the HTTP Observatory
 -----------------------------------------
