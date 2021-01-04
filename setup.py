@@ -20,7 +20,8 @@ setup(
     license='MPL 2.0',
     long_description=README,
     install_requires=[
-        'requests'
+        'requests',
+        'pytz'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',

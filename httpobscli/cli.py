@@ -8,6 +8,7 @@ from sys import exit
 
 import argparse
 import datetime
+import pytz
 import json
 import requests
 import sys
@@ -61,7 +62,13 @@ def analyze(host):
 
     # Print out a notification on stderr that it's a cached result
     # I hate working with datetime so much
-    differential = datetime.datetime.now() - datetime.datetime.strptime(scan['end_time'], '%a, %d %b %Y %H:%M:%S %Z')
+    differential = datetime.datetime.now(pytz.utc) - \
+                   pytz.timezone('GMT').localize(
+                       datetime.datetime.strptime(
+                           scan['end_time'],
+                           '%a, %d %b %Y %H:%M:%S %Z'
+                        )
+                    )
     differential = differential.days * 86400 + differential.seconds
 
     if differential > 300:
