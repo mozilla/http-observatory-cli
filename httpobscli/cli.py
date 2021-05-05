@@ -83,7 +83,7 @@ def analyze(host):
     if args.csv:
         print('{host},{grade},{score},"'.format(host=host, grade=grade, score=score), end="")
     elif args.debug:
-        print(json.dumps({'scan': scan, 'tests': tests}, indent=4, sort_keys=True))
+        print(json.dumps({'scan': scan, 'host': host, 'tests': tests}, indent=4, sort_keys=True))
     else:
         print('Score: {score} [{grade}]'.format(score=score, grade=grade))
 
